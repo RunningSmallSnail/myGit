@@ -1,34 +1,6 @@
 @字符的使用，可以避免输出命令信息
 如果make执行时，带入make参数“-n”或“--just-print”，那么其只是显示命令，但不会执行命令，这个功能很有利于我们调试我们的Makefile，看看我们书写的命令是执行起来是什么样子的或是什么顺序的。
 
-而make参数“-s”或“--slient”则是全面禁止命令的显示。
-
-命令执行
-需要注意的是，如果你要让上一条命令的结果应用在下一条命令时，你应该使用分号分隔这两条命令。
-示例一：
-exec:
-cd /home/hchen
-pwd
-示例二：
-exec:
-cd /home/hchen; pwd
-当我们执行“make exec”时，第一个例子中的cd没有作用，pwd会打印出当前的Makefile目录，
-而第二个例子中，cd就起作用了，pwd会打印出“/home/hchen”
-
-
-命令出错
-可以在Makefile的命令行前加一个减号“-”（在Tab键之后），标记为不管命令出不出错都认为是成功的。
-还有两种方法，再次没有展示
-
-嵌套执行make
-
-例如，我们有一个子目录叫subdir，这个目录下有个Makefile文件，来指明了这个目录下文件的编译规则。那么我们总控的Makefile可以这样书写：
-subsystem:
-cd subdir && $(MAKE)
-其等价于：
-subsystem:
-$(MAKE) -C subdir
-定义$(MAKE)宏变量的意思是，也许我们的make需要一些参数，所以定义成一个变量比较利于维护
 
 有总控makefile 可以传递变量到下级makefile，可以覆盖，也可以不覆盖
 
